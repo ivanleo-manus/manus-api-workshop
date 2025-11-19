@@ -7,7 +7,11 @@ requires-python = ">=3.9"
 dependencies = [
     "dotenv>=0.9.9",
     "ipykernel>=6.31.0",
+    "fastapi>=0.111.0",
     "openai>=2.8.0",
     "requests>=2.32.5",
     "rich>=14.2.0",
+    "uvicorn>=0.30.0",
+    "markdown>=3.9",
+    "modal>=1.2.2",
 ]
