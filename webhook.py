@@ -205,9 +205,24 @@ def create_manus_task(prompt: str, task_id: Optional[str] = None, attachments: O
     api_key = os.environ["MANUS_API_KEY"]
     base_url = "https://api.manus.ai/v1"
     payload = {
-        "prompt": prompt,
+        "prompt": f"""
+You're a helpful assistant for company policy questions. 
+
+1. Use the Notion connector to retrieve the most up-to-date version of the company policy before answering.
+2. Figure out the answer to the user's question based on the current policy. Provide inline citations from the policy whenever relevant.
+3. If the user's question relates to a travel expense:
+   - Create a new page or update an existing page for the user about their trip.
+   - Use the date of the travel expense to determine which trip or item should be updated or referenced.
+
+Respond helpfully and accurately, following the steps above.
+
+<user_request>
+{prompt}
+</user_request>
+        """,
         "agentProfile": "manus-1.5",
         "taskMode": "agent",
+        "connectors":["9c27c684-2f4f-4d33-8fcf-51664ea15c00"]
     }
     if task_id:
         payload["taskId"] = task_id
@@ -361,7 +376,7 @@ def handle_slack_message(event: AppMentionEvent) -> None:
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": "Manus Task Started"
+                "text": "We've started working on your request!"
             }
         },
         {
