@@ -14,4 +14,5 @@ dependencies = [
     "uvicorn>=0.30.0",
     "markdown>=3.9",
     "modal>=1.2.2",
+    "slack-sdk>=3.38.0",
 ]
